@@ -1,0 +1,32 @@
+[
+    {
+        "name": "Doritos",
+        "amount": "4",
+        "price": "5",
+        "id" : ""
+    },
+    {
+        "name": "Cheesetris",
+        "amount": "3",
+        "price": "5",
+        "id" : "" 
+    },
+    {
+        "name": "Pepitos",
+        "amount": "9",
+        "price": "4",
+        "id" : ""
+    },
+    {
+        "name": "Ruffles",
+        "amount": "10",
+        "price": "5",
+        "id" : "" 
+    },
+    {
+        "name": "Lays",
+        "amount": "20",
+        "price": "10",
+        "id" : "" 
+    }
+]
