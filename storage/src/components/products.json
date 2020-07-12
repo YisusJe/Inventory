@@ -1,3 +1,5 @@
+
+
 [
     {
         "name": "Doritos",
@@ -9,7 +11,7 @@
         "name": "Cheesetris",
         "amount": "3",
         "price": "5",
-        "id" : "" 
+        "id" : ""
     },
     {
         "name": "Pepitos",
@@ -21,12 +23,12 @@
         "name": "Ruffles",
         "amount": "10",
         "price": "5",
-        "id" : "" 
+        "id" : ""
     },
     {
         "name": "Lays",
         "amount": "20",
         "price": "10",
-        "id" : "" 
+        "id" : ""
     }
 ]

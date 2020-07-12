@@ -5,9 +5,8 @@ const List = ({ products }) => {
   return (
     <ul className="list">
       {products.map((product,id) => {
-          return <Item product={product} key={id}/>
+          return <Item product={product} id={id+1} key={id}/>
       })}
-
     </ul>
   );
 };

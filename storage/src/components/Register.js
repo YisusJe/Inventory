@@ -1,25 +1,29 @@
 import React, { useState } from "react";
 import * as firebase from "firebase";
-const Register = ({ setR }) => {
+const Register = ({ setR,handleAlert }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [failedRegister,setFailedRegister] = useState(false);
 
   const handleRegister = (e) => {
-    const Remail = e.target[0].value;
-    const Rpassword = e.target[1].value;
+    const email = e.target[0].value;
+    const password = e.target[1].value;
     setR(false);
     const auth = firebase.auth();
     auth
-      .createUserWithEmailAndPassword(Remail, Rpassword)
+      .createUserWithEmailAndPassword(email, password)
       .catch(function (error) {
-        // Handle Errors here
-        var errorCode = error.code;
-        var errorMessage = error.message;
+        const errorCode = error.code;
+        const errorMessage = error.message;
         console.log(errorCode);
         console.log(errorMessage);
-        // ...
+        setFailedRegister(true);
+        handleAlert({type: "danger",text: `registry failed with error ${errorCode} - ${errorMessage}`, time:5000})
       });
-    //creando un usuario
+    if(!failedRegister){
+      handleAlert({type: "success",text: "registry successfully",time:4000})
+    }
+    setFailedRegister(false);
   };
 
   const handleEmail = (type) => {
@@ -58,10 +62,10 @@ const Register = ({ setR }) => {
           ></input>
         </div>
         <button type="submit" className="btn btn-submit register">
-          Register
+          Sign Up
         </button>
         <button onClick={() => setR(false)} className="btn btn-submit register">
-          Login
+          Return to Login
         </button>
       </div>
     </form>

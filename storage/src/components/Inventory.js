@@ -5,6 +5,7 @@ import Register from "./Register";
 import Page from "./subComponents/Page";
 import * as firebase from "firebase";
 import ForgotPassword from "./ForgotPassword";
+import Alert from "./Alert"
 
 const Inventory = () => {
     const [logged, setLogged] = useState(false);
@@ -13,20 +14,29 @@ const Inventory = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState(false);
+    const [alert, setAlert] = useState({show: false})
 
     const handlerLogOut = () =>    {
         firebase.auth().signOut();
         setLogged(false);
+        handleAlert({type: "success",text: "you have logout successfully",time:2000})
+    };
+    const handleAlert = ({ type, text,time }) => {
+        setAlert({ show: true, type, text });
+        setTimeout(() => {
+            setAlert({ show: false });
+        }, time);
     };
 
     return (
         <div>
+            {alert.show && <Alert type={alert.type} text={alert.text} />}
             <h1>Inventory</h1>
             <main>
                 {logged ? (
-                    <Page handlerLogOut={handlerLogOut}/>
+                    <Page handlerLogOut={handlerLogOut} handleAlert={handleAlert}/>
                 ) : R ? (
-                    <Register setR={setR}/>
+                    <Register setR={setR} handleAlert={handleAlert}/>
                 ) : !forgot ? (
                     <Login
                         setR={setR}
@@ -39,8 +49,9 @@ const Inventory = () => {
                         setEmail={setEmail}
                         setPassword={setPassword}
                         setForgot={setForgot}
+                        handleAlert={handleAlert}
                     />
-                ) : <ForgotPassword setForgot={setForgot}/>}
+                ) : <ForgotPassword setForgot={setForgot} handleAlert={handleAlert}/>}
             </main>
         </div>
     );

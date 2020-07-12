@@ -1,46 +1,54 @@
-import React from "react";
+import React,{useState} from "react";
 import * as firebase from "firebase";
 
 const Login = ({
   setR,
   email,
   password,
-  error,
   setLogged,
-  setError,
   setEmail,
   setPassword,
   setForgot,
-  forgot,
+    handleAlert
 }) => {
-  const handleUser = (email) => {
-    setEmail(email);
+
+  const [remember,setRemember] = useState(false);
+
+  const handleEmail = (e) => {
+    setEmail(e.target.value);
   };
   const handlePassword = (password) => {
     setPassword(password);
   };
 
-  const mostrar = (e) => {
+  const register = (e) => {
     setR(true);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const Remail = e.target[0].value;
-    const Rpassword = e.target[1].value;
+    const email = e.target[0].value;
+    const password = e.target[1].value;
     const auth = firebase.auth();
-    auth.signInWithEmailAndPassword(Remail, Rpassword).catch((e) => {
+    handleAlert({type: "loading", text: "loading",time:2000});
+    auth.signInWithEmailAndPassword(email, password).catch((e) => {
       console.log(e.message);
-      setError(true);
-      setTimeout(() => setError(false), 4000);
+      if(email === ""){
+        handleAlert({type: "danger", text: "cannot have the email empty",time:4000})
+      } else{
+        handleAlert({type: "danger", text: "incorrect email or password ",time:4000})
+      }
     });
     firebase.auth().onAuthStateChanged((firebaseUser) => {
       if (firebaseUser) {
         console.log(firebaseUser);
         setLogged(true);
-        setEmail("");
+        if(remember){
+          setEmail(email);
+        }else{
+          setEmail("")
+        }
         setPassword("");
-        setTimeout(() => console.log("cargando"),4000);
       } else {
         console.log("not logged in");
       }
@@ -48,9 +56,13 @@ const Login = ({
   };
 
   const handleForgot = () => {
-
     setForgot(true);
   };
+
+  const toggleRemember = () => {
+    setRemember(!remember);
+  }
+
 
   return (
     <div>
@@ -59,10 +71,12 @@ const Login = ({
           <div className="form-group">
             <input
               type="text"
-              id="user"
+              id="email"
               className="form-control"
-              name="user"
-              placeholder="user"
+              name="email"
+              placeholder="email"
+              value={email}
+              onChange={handleEmail}
             ></input>
           </div>
           <div className="form-group">
@@ -75,19 +89,18 @@ const Login = ({
             ></input>
           </div>
           <div>
-            <input type="checkbox"></input>
+            <input type="checkbox" checked={remember} onChange={toggleRemember}></input>
             Recuerdame
           </div>
           <button type="submit" className="btn btn-submit">
             submit
           </button>
-          <button className="btn btn-submit" onClick={mostrar}>
+          <button className="btn btn-submit" onClick={register}>
             register
           </button>
           <p className="forgot" onClick={handleForgot}>
             forgot pass?
           </p>
-          {error && <h3>Login failed</h3>}
         </div>
       </form>
     </div>

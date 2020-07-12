@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import * as firebase from "firebase";
 
-const ForgotPassword = ({ setForgot }) => {
+const ForgotPassword = ({ setForgot,handleAlert }) => {
   const [email, setEmail] = useState("");
 
   const getEmail = () => {
@@ -21,6 +21,7 @@ const ForgotPassword = ({ setForgot }) => {
     }
   };
 
+
   const handleEmail = (e) => {
     
     setEmail(e.target.value);
@@ -39,7 +40,7 @@ const ForgotPassword = ({ setForgot }) => {
         submit
       </button>
       <button className="btn btn-submit" onClick={() => setForgot(false)}>
-        Login
+        Return to Login
       </button>
     </div>
   );
