@@ -1,7 +1,7 @@
 import React from "react"
 
-const Item = ({product,id}) => {
-    const {name,amount,price} = product
+const Item = ({product,handleEdit,handleDelete}) => {
+    const {name,amount,price,id} = product
     return (
         <li className="item" key={id}>
             <div className="info">
@@ -14,14 +14,14 @@ const Item = ({product,id}) => {
                 <button
                     className="edit-btn"
                     aria-label="edit button"
-                    //onClick={() => handleEdit(id)}
+                    onClick={() => handleEdit(id)}
                 >
                     edit
                 </button>
                 <button
                     className="clear-btn"
                     aria-label="delete button"
-                    //onClick={() => handleDelete(id)}
+                    onClick={() => handleDelete(id)}
                 >
                     X
                 </button>

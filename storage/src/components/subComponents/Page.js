@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import initialProducts from "../products.json";
 import List from "./List";
 import Form from "./Form";
+import uuid from "uuid/dist/v4"
 
 const Page = ({ handlerLogOut,handleAlert }) => {
 
@@ -37,18 +38,33 @@ const Page = ({ handlerLogOut,handleAlert }) => {
     };
     const handleSubmit = (e) => {
         e.preventDefault();
-        const singleProduct = { name, amount, price };
-        setProducts([...products, singleProduct]);
-        handleAlert({ type: "success", text: "item added",time:2000 });
+        if (name !== "" && amount !== "" && amount > 0) {
+            if (edit) {
+                let tempProducts = products.map((item) => {
+                    return item.id === id ? {...item, name, amount, price} : item;//actualizando item con nuevas propiedades
+                });
+                setProducts(tempProducts);
+                setEdit(false);
+                handleAlert({type: "success", text: "item edited",time:2000});
+            } else {
+                const singleProduct = { name, price, amount, id: uuid()};
+                setProducts([...products, singleProduct]);
+                handleAlert({type: "success", text: "item added",time: 2000});
+            }
+            setPrice("");
+            setName("");
+            setAmount("");
+        } else {
+            handleAlert({type: "danger", text: "charge can't be empty",time: 2000});
+        }
     }
 
   return (
     <div>
         <main className="App">
             <Form handleSubmit={handleSubmit} amount={amount} name={name} price={price} edit={edit} handleEdit={handleEdit} handleDetele={handleDelete} handlePrice={handlePrice} handleName={handleName} handleAmount={handleAmount}/>
-            <List products={products} />
+            <List products={products} handleEdit={handleEdit} handleDelete={handleDelete}/>
         </main>
-
       <button className="btn btn-danger" onClick={handlerLogOut}>
         Log out
       </button>

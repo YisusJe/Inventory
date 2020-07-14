@@ -1,11 +1,11 @@
 import React from "react";
 import Item from "./Item";
 
-const List = ({ products }) => {
+const List = ({ products,handleEdit,handleDelete }) => {
   return (
     <ul className="list">
-      {products.map((product,id) => {
-          return <Item product={product} id={id+1} key={id}/>
+      {products.map((product) => {
+          return <Item product={product} key={product.id} handleEdit={handleEdit} handleDelete={handleDelete}/>
       })}
     </ul>
   );
