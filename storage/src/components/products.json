@@ -1,33 +1,37 @@
-
 [
     {
         "name": "Doritos",
         "amount": "4",
         "price": "5",
+        "description" : "xd",
         "id" : "1"
     },
     {
         "name": "Cheesetris",
         "amount": "3",
         "price": "5",
+        "description" : "ad",
         "id" : "2"
     },
     {
         "name": "Pepitos",
         "amount": "9",
         "price": "4",
+        "description" : "sd",
         "id" : "3"
     },
     {
         "name": "Ruffles",
         "amount": "10",
         "price": "5",
+        "description" : "td",
         "id" : "4"
     },
     {
         "name": "Lays",
         "amount": "20",
         "price": "10",
+        "description" : "jd",
         "id" : "5"
     }
 ]

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import * as firebase from "firebase";
 
-const ForgotPassword = ({ setForgot,handleAlert }) => {
+const ForgotPassword = ({ setForgot, handleAlert }) => {
   const [email, setEmail] = useState("");
 
   const getEmail = () => {
@@ -21,11 +21,9 @@ const ForgotPassword = ({ setForgot,handleAlert }) => {
     }
   };
 
-
   const handleEmail = (e) => {
-    
     setEmail(e.target.value);
-  }
+  };
 
   return (
     <div>

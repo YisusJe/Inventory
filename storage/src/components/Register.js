@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import * as firebase from "firebase";
-const Register = ({ setR,handleAlert }) => {
+const Register = ({ setR, handleAlert }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [failedRegister,setFailedRegister] = useState(false);
+  const [failedRegister, setFailedRegister] = useState(false);
 
   const handleRegister = (e) => {
     const email = e.target[0].value;
@@ -18,10 +18,18 @@ const Register = ({ setR,handleAlert }) => {
         console.log(errorCode);
         console.log(errorMessage);
         setFailedRegister(true);
-        handleAlert({type: "danger",text: `registry failed with error ${errorCode} - ${errorMessage}`, time:5000})
+        handleAlert({
+          type: "danger",
+          text: `registry failed with error ${errorCode} - ${errorMessage}`,
+          time: 5000,
+        });
       });
-    if(!failedRegister){
-      handleAlert({type: "success",text: "registry successfully",time:4000})
+    if (!failedRegister) {
+      handleAlert({
+        type: "success",
+        text: "registry successfully",
+        time: 4000,
+      });
     }
     setFailedRegister(false);
   };

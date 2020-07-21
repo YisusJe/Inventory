@@ -85,7 +85,7 @@ label {
   display: flex;
   align-items: center;
 }
-.btn-submit{
+.btn-submit {
   margin-top: 3%;
   margin-left: 10vh;
 }
@@ -96,8 +96,8 @@ label {
   margin-left: 0.75rem;
   font-size: 1.2rem;
 }
-.register{
-  margin-top: 50px
+.register {
+  margin-top: 50px;
 }
 .list {
   margin: 2rem 0.75rem 0 0.75rem;
@@ -124,10 +124,16 @@ label {
   display: flex;
   justify-content: space-between;
 }
+.description {
+  flex: none;
+  display: block;
+  text-align: center;
+  justify-content: normal;
+  margin-bottom: 1rem;
+}
 .amount {
   margin-right: 2rem;
   text-transform: capitalize;
-  
 }
 .price {
   font-weight: 300;
@@ -153,7 +159,7 @@ label {
 .edit-btn {
   color: var(--mainGreen);
 }
-.forgot{
+.forgot {
   text-decoration: underline;
   color: blue;
   cursor: pointer;
@@ -182,7 +188,7 @@ label {
   background: var(--mainGreen);
 }
 .alert-loading {
-    background: var(--mainYellow);
+  background: var(--mainYellow);
 }
 @media screen and (min-width: 601px) {
   .App,

@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 import * as firebase from "firebase";
 
 const Login = ({
@@ -9,44 +9,56 @@ const Login = ({
   setEmail,
   setPassword,
   setForgot,
-    handleAlert
+  handleAlert,
+  setIsLoading,
+  isLoading,
 }) => {
-
-  const [remember,setRemember] = useState(false);
+  const [remember, setRemember] = useState(false);
 
   const handleEmail = (e) => {
     setEmail(e.target.value);
   };
-  const handlePassword = (password) => {
-    setPassword(password);
-  };
-
   const register = (e) => {
     setR(true);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const email = e.target[0].value;
-    const password = e.target[1].value;
+    setIsLoading(true);
+    const Remail = e.target[0].value;
+    const Rpassword = e.target[1].value;
     const auth = firebase.auth();
-    handleAlert({type: "loading", text: "loading",time:2000});
-    auth.signInWithEmailAndPassword(email, password).catch((e) => {
-      console.log(e.message);
-      if(email === ""){
-        handleAlert({type: "danger", text: "cannot have the email empty",time:4000})
-      } else{
-        handleAlert({type: "danger", text: "incorrect email or password ",time:4000})
-      }
-    });
+    handleAlert({ type: "loading", text: "loading", time: 2000 });
+
+    auth
+      .signInWithEmailAndPassword(Remail, Rpassword)
+      .then(() => setIsLoading(false))
+      .catch((e) => {
+        console.log(e.message);
+        if (Remail === "") {
+          handleAlert({
+            type: "danger",
+            text: "cannot have the email empty",
+            time: 4000,
+          });
+          setLogged(false);
+        } else {
+          handleAlert({
+            type: "danger",
+            text: "incorrect email or password ",
+            time: 4000,
+          });
+          setLogged(false);
+        }
+      });
     firebase.auth().onAuthStateChanged((firebaseUser) => {
       if (firebaseUser) {
         console.log(firebaseUser);
         setLogged(true);
-        if(remember){
-          setEmail(email);
-        }else{
-          setEmail("")
+        if (remember) {
+          setEmail(Remail);
+        } else {
+          setEmail("");
         }
         setPassword("");
       } else {
@@ -61,8 +73,7 @@ const Login = ({
 
   const toggleRemember = () => {
     setRemember(!remember);
-  }
-
+  };
 
   return (
     <div>
@@ -89,7 +100,11 @@ const Login = ({
             ></input>
           </div>
           <div>
-            <input type="checkbox" checked={remember} onChange={toggleRemember}></input>
+            <input
+              type="checkbox"
+              checked={remember}
+              onChange={toggleRemember}
+            ></input>
             Recuerdame
           </div>
           <button type="submit" className="btn btn-submit">
